@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KrishiRent | Agriculture Equipment Rental</title>
+  <style>
+    :root{--green:#236b3b;--dark:#173b27;--cream:#f6f8f1;--gold:#f2b544;--muted:#647067}
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#243128;background:#fff;line-height:1.5}
+    header{background:var(--dark);color:white;padding:15px 6%;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .brand{font-size:1.35rem;font-weight:800}.brand span{color:var(--gold)}
+    nav a{color:white;text-decoration:none;margin-left:18px;font-size:.95rem}
+    .hero{padding:65px 6%;background:linear-gradient(110deg,rgba(18,58,34,.92),rgba(35,107,59,.78)),linear-gradient(45deg,#789b57,#d6c28d);color:white}
+    .hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.12;max-width:720px;margin:0 0 15px}
+    .hero p{max-width:650px;font-size:1.08rem;color:#edf5ed}
+    .btn{display:inline-block;background:var(--gold);color:#243128;padding:11px 18px;border:0;border-radius:7px;font-weight:700;text-decoration:none;cursor:pointer}
+    .section{padding:42px 6%}.section h2{color:var(--dark);margin:0 0 8px}.sub{color:var(--muted);margin:0 0 22px}
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}
+    .feature,.card,.panel{border:1px solid #e2e9df;border-radius:12px;padding:18px;background:white}
+    .feature strong{display:block;color:var(--green);margin-bottom:5px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+    input,select,textarea{width:100%;padding:11px;border:1px solid #cbd6ca;border-radius:7px;font:inherit;background:white}
+    .toolbar input{max-width:340px}.toolbar select{max-width:210px}
+    .equipment{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .machine-icon{height:115px;border-radius:9px;background:var(--cream);display:grid;place-items:center;font-size:3.6rem}
+    .card h3{margin:12px 0 4px}.price{color:var(--green);font-weight:800}.status{font-size:.85rem;color:#236b3b}
+    .card button{margin-top:12px;width:100%}
+    .booking-wrap{background:var(--cream)}
+    .booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.full{grid-column:1/-1}
+    label{display:block;font-size:.9rem;font-weight:700;margin-bottom:5px}
+    .notice{background:#fff7df;border-left:4px solid var(--gold);padding:12px;border-radius:5px;color:#59451a;font-size:.9rem}
+    #message{margin-top:12px;color:var(--green);font-weight:700}
+    footer{background:var(--dark);color:#e8f0e8;text-align:center;padding:22px 6%;font-size:.9rem}
+    @media(max-width:650px){nav a{margin:0 12px 0 0}.booking-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand">🌾 Krishi<span>Rent</span></div>
+  <nav><a href="#home">Home</a><a href="#equipment">Equipment</a><a href="#booking">Book Now</a></nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <h1>Farm equipment, when you need it.</h1>
+  <p>Find agricultural machines, check indicative availability and send a rental booking request. A simple platform designed with farmers and rural communities in mind.</p>
+  <a class="btn" href="#equipment">Explore Equipment</a>
+</section>
+
+<section class="section">
+  <h2>How it works</h2>
+  <p class="sub">A simple way to find and request the equipment you need.</p>
+  <div class="features">
+    <div class="feature"><strong>1. Find equipment</strong>Browse machines by type and use.</div>
+    <div class="feature"><strong>2. Check details</strong>See the listed rental price and availability status.</div>
+    <div class="feature"><strong>3. Send a request</strong>Enter your details and preferred rental dates.</div>
+  </div>
+</section>
+
+<section class="section" id="equipment">
+  <h2>Available equipment</h2>
+  <p class="sub">Sample listings for demonstration. Actual availability and prices must be confirmed by the equipment owner.</p>
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Search tractor, harvester...">
+    <select id="filter">
+      <option value="all">All equipment</option><option value="tractor">Tractors</option><option value="harvester">Harvesters</option><option value="plough">Ploughs</option><option value="sprayer">Sprayers</option>
+    </select>
+  </div>
+  <div class="equipment" id="equipmentList"></div>
+</section>
+
+<section class="section booking-wrap" id="booking">
+  <h2>Equipment booking request</h2>
+  <p class="sub">Fill in the form. This demo shows a confirmation on this page; it does not send or store a real booking.</p>
+  <div class="booking-grid">
+    <form class="panel" id="bookingForm">
+      <div class="form-grid">
+        <div><label for="name">Farmer's name</label><input id="name" required placeholder="Enter your name"></div>
+        <div><label for="phone">Phone number</label><input id="phone" required inputmode="tel" pattern="[0-9+\-\s]{10,15}" placeholder="Enter phone number"></div>
+        <div><label for="machine">Equipment</label><select id="machine" required></select></div>
+        <div><label for="location">Village / location</label><input id="location" required placeholder="Enter your village"></div>
+        <div><label for="start">Start date</label><input id="start" type="date" required></div>
+        <div><label for="end">End date</label><input id="end" type="date" required></div>
+        <div class="full"><label for="notes">Additional details (optional)</label><textarea id="notes" rows="3" placeholder="Any special requirement"></textarea></div>
+        <div class="full"><button class="btn" type="submit">Submit booking request</button></div>
+      </div>
+      <div id="message" role="status"></div>
+    </form>
+    <div class="panel">
+      <h3>Booking information</h3>
+      <p>After submitting, contact the equipment owner to confirm the final price, dates and delivery arrangements.</p>
+      <div class="notice">This is a front-end demonstration. A real system needs a PHP backend and MySQL database to securely save users, equipment and booking records.</div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>© 2026 KrishiRent · Agriculture Equipment Rental Management System · Student project prototype</footer>
+
+<script>
+const equipment = [
+  {id:"tractor",name:"Tractor",type:"tractor",price:1500,icon:"🚜",available:true,desc:"For ploughing and field preparation"},
+  {id:"harvester",name:"Harvester",type:"harvester",price:4500,icon:"🌾",available:true,desc:"For harvesting crops"},
+  {id:"plough",name:"Plough",type:"plough",price:700,icon:"🛠️",available:false,desc:"For soil preparation"},
+  {id:"sprayer",name:"Crop Sprayer",type:"sprayer",price:500,icon:"💦",available:true,desc:"For spraying crops"}
+];
+const list=document.getElementById("equipmentList"), machine=document.getElementById("machine");
+function renderEquipment(){
+  const q=document.getElementById("search").value.toLowerCase();
+  const f=document.getElementById("filter").value;
+  list.innerHTML="";
+  equipment.filter(e=>(f==="all"||e.type===f)&&(e.name.toLowerCase().includes(q)||e.desc.toLowerCase().includes(q))).forEach(e=>{
+    const card=document.createElement("article");card.className="card";
+    card.innerHTML=`<div class="machine-icon">${e.icon}</div><h3>${e.name}</h3><p>${e.desc}</p><div class="price">₹${e.price.toLocaleString("en-IN")} / day</div><div class="status">${e.available?"Availability: Listed as available":"Availability: Currently unavailable"}</div><button class="btn" ${e.available?"":"disabled"}>${e.available?"Book this equipment":"Unavailable"}</button>`;
+    card.querySelector("button").addEventListener("click",()=>{machine.value=e.id;document.getElementById("booking").scrollIntoView({behavior:"smooth"});});
+    list.appendChild(card);
+  });
+}
+equipment.forEach(e=>{const o=document.createElement("option");o.value=e.id;o.textContent=e.name;machine.appendChild(o);});
+document.getElementById("search").addEventListener("input",renderEquipment);
+document.getElementById("filter").addEventListener("change",renderEquipment);
+document.getElementById("bookingForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const start=new Date(document.getElementById("start").value),end=new Date(document.getElementById("end").value);
+  if(end<start){document.getElementById("message").textContent="Please choose a valid end date.";return;}
+  const days=Math.max(1,Math.ceil((end-start)/86400000)+1),chosen=equipment.find(x=>x.id===machine.value);
+  document.getElementById("message").textContent=`Demo request prepared for ${chosen.name}, ${days} day(s). Please contact the equipment owner to confirm.`;
+});
+renderEquipment();
+</script>
+</body>
+</html>
